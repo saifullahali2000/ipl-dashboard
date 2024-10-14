@@ -1,0 +1,87 @@
+.latest-card {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #0f172a;
+  border-radius: 10px;
+  font-family: 'Bree Serif';
+}
+
+@media screen and (max-width: 768px) {
+  .latest-card {
+    display: block;
+    align-items: center;
+  }
+}
+
+.left-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+}
+
+.latest-heading {
+  font-size: 36px;
+  font-weight: normal;
+}
+
+.card-with-pic {
+  display: flex;
+  align-items: center;
+}
+
+.date-match {
+  font-size: 26px;
+}
+
+.venue-match {
+  font-size: 16px;
+}
+
+.latest-image {
+  width: 260px;
+  height: 200px;
+  margin-right: 46px;
+  margin-left: 46px;
+}
+
+@media screen and (max-width: 768px) {
+  .latest-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.right-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .right-holder {
+    align-items: flex-start;
+  }
+}
+
+.latest-innings {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.values-latest {
+  font-size: 14px;
+}
+
+@media screen and (min-width: 769px) {
+  .hr-line {
+    display: none;
+  }
+}
