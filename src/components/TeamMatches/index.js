@@ -7,6 +7,8 @@ import LatestMatch from '../LatestMatch'
 
 import MatchCard from '../MatchCard'
 
+import PieChart from '../PieChart'
+
 import './index.css'
 
 class TeamMatches extends Component {
@@ -41,6 +43,7 @@ class TeamMatches extends Component {
       firstInnings: latestMatchDetails.first_innings,
       secondInnings: latestMatchDetails.second_innings,
       manOfTheMatch: latestMatchDetails.man_of_the_match,
+      matchStatus: latestMatchDetails.match_status,
     }
     const {recentMatches} = newData
     const newRecentMatches = recentMatches.map(eachValue => ({
@@ -55,12 +58,45 @@ class TeamMatches extends Component {
     this.setState({matchDetails: newData, isTrue: false})
   }
 
+  navigateToHome = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
+  getNoMatchDetails = value => {
+    const {matchDetails} = this.state
+
+    if (!matchDetails) {
+      return 0
+    }
+
+    const {latestMatchDetails, recentMatches} = matchDetails
+
+    if (!latestMatchDetails || !recentMatches) {
+      return 0
+    }
+
+    const currentMatch = value === latestMatchDetails.matchStatus ? 1 : 0
+    const result =
+      recentMatches.filter(match => match.matchStatus === value).length +
+      currentMatch
+
+    return result
+  }
+
+  getPieChartDetails = () => [
+    {name: 'Won', value: this.getNoMatchDetails('Won')},
+    {name: 'Lost', value: this.getNoMatchDetails('Lost')},
+    {name: 'Drawn', value: this.getNoMatchDetails('Drawn')},
+  ]
+
   render() {
     const {matchDetails, isTrue} = this.state
     const {match} = this.props
     const {params} = match
     const {id} = params
     const {teamBannerUrl, latestMatchDetails, recentMatches} = matchDetails
+
     return (
       <>
         <div className={`bg-container ${id}`}>
@@ -69,6 +105,7 @@ class TeamMatches extends Component {
               <Loader type="Oval" color="#ffffff" height={50} width={50} />
             </div>
           )}
+
           {!isTrue && (
             <>
               <img
@@ -76,6 +113,9 @@ class TeamMatches extends Component {
                 className="banner-img"
                 alt="team banner"
               />
+
+              {!isTrue && <PieChart data={this.getPieChartDetails()} />}
+
               <h1 className="latest-name">Latest Matches</h1>
               <LatestMatch
                 key={latestMatchDetails.id}
@@ -87,6 +127,15 @@ class TeamMatches extends Component {
                 ))}
               </ul>
             </>
+          )}
+          {!isTrue && (
+            <button
+              type="button"
+              className="back-button"
+              onClick={this.navigateToHome}
+            >
+              Back
+            </button>
           )}
         </div>
       </>
