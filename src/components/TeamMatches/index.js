@@ -114,7 +114,7 @@ class TeamMatches extends Component {
                 alt="team banner"
               />
 
-              {!isTrue && <PieChart data={this.getPieChartDetails()} />}
+              <PieChart data={this.getPieChartDetails()} />
 
               <h1 className="latest-name">Latest Matches</h1>
               <LatestMatch
